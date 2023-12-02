@@ -1,26 +1,38 @@
-from flask import Flask, render_template, request
-from transformers import pipeline
+from flask import Flask, jsonify, render_template, request
+
+import pandas as pd
 
 app = Flask(__name__)
 
-# Load sentiment analysis model from Hugging Face
-sentiment_analysis = pipeline("sentiment-analysis")
-
-
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template('stock_prediction.html')
 
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        ticker = request.form['ticker']
+        # retreive historical data
+        stock_data = pd.read_csv('Final_Merge.csv')
+        stock_data = stock_data[stock_data['Symbol'] == ticker]
 
-@app.route("/analyze", methods=["POST"])
-def analyze():
-    if request.method == "POST":
-        text = request.form["text"]
-        # Perform sentiment analysis on the provided text
-        result = sentiment_analysis(text)
-        sentiment = result[0]["label"]
-        return render_template("result.html", text=text, sentiment=sentiment)
+        # Calculate the 10-day moving average
+        stock_data['10_day_MA'] = stock_data['close'].rolling(window=10).mean()
 
+        # Get the last row of the data (latest date)
+        last_row = stock_data.iloc[0]
 
-if __name__ == "__main__":
+        # Extract relevant information
+        prediction = {
+            'Date': str(last_row.name),
+            'Last_Close_Price': last_row['close'],
+            '10_day_MA': last_row['10_day_MA']
+        }
+
+        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker)
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
     app.run(debug=True)

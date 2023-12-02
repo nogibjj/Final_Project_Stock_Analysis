@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Prediction</title>
+</head>
+
+<body>
+    <h1>Stock Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="ticker">Select Stock Symbol:</label>
+        <select id="ticker" name="ticker">
+            <option value="AAPL">Apple (AAPL)</option>
+            <option value="GOOGL">Alphabet (GOOGL)</option>
+            <!-- Add more options as needed -->
+        </select>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <h2>Prediction for {{ ticker }}</h2>
+    <p>Date: {{ prediction['Date'] }}</p>
+    <p>Last Close Price: {{ prediction['Last_Close_Price'] }}</p>
+    <p>10-day Moving Average: {{ prediction['10_day_MA'] }}</p>
+    {% endif %}
+
+</body>
+
+</html>
