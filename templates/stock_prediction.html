@@ -7,8 +7,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
         }
@@ -19,12 +19,13 @@
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #333;
         }
 
         form {
@@ -37,26 +38,29 @@
 
         label {
             font-weight: bold;
+            color: #333;
         }
 
         select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
             outline: none;
+            color: #555;
         }
 
         button {
             display: block;
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 5px;
             background-color: #007bff;
             color: #fff;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -72,6 +76,7 @@
         h2 {
             text-align: center;
             margin-top: 30px;
+            color: #333;
         }
 
         .prediction-details {
@@ -80,13 +85,14 @@
 
         .prediction-details p {
             margin-bottom: 5px;
+            color: #555;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Stock Prediction</h1>
+        <h1>Stock Prediction <span style="font-size: 24px;">📈</span></h1>
         <form action="/predict" method="post">
             <div class="form-group">
                 <label for="ticker">Select Ticker Symbol:</label>
@@ -117,7 +123,7 @@
                     <option value="COST">COST</option>
                 </select>
             </div>
-            <button type="submit">Predict</button>
+            <button type="submit">Predict <span style="font-size: 18px;">🔍</span></button>
         </form>
 
         {% if prediction %}
@@ -138,7 +144,14 @@
         </div>
         {% endif %}
     </div>
-
+        <hr>
+        <div class="text-center">
+            {% if plot_url %}
+            <h2>Time Series Plot</h2>
+                <iframe src="data:text/html;base64,{{ plot_url }}" height="600" width="100%" frameborder="0"></iframe>
+            {% endif %}
+        </div>
+    </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
