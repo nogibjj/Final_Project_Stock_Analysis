@@ -4,27 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <title>Stock Prediction</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        hr {
+            margin-top: 40px;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .prediction-details {
+            margin-top: 20px;
+        }
+
+        .prediction-details p {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Stock Prediction</h1>
-    <form action="/predict" method="post">
-        <label for="ticker">Select Stock Symbol:</label>
-        <select id="ticker" name="ticker">
-            <option value="AAPL">Apple (AAPL)</option>
-            <option value="GOOGL">Alphabet (GOOGL)</option>
-            <!-- Add more options as needed -->
-        </select>
-        <button type="submit">Predict</button>
-    </form>
+    <div class="container">
+        <h1>Stock Prediction</h1>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="ticker">Select Ticker Symbol:</label>
+                <select id="ticker" name="ticker" class="form-control" required>
+                    <option value="" selected disabled>Select a symbol</option>
+                    <option value="AAPL">AAPL</option>
+                    <option value="MSFT">MSFT</option>
+                    <option value="GOOG">GOOG</option>
+                    <option value="GOOGL">GOOGL</option>
+                    <option value="AMZN">AMZN</option>
+                    <option value="NVDA">NVDA</option>
+                    <option value="META">META</option>
+                    <option value="TSLA">TSLA</option>
+                    <option value="LLY">LLY</option>
+                    <option value="UNH">UNH</option>
+                    <option value="V">V</option>
+                    <option value="JPM">JPM</option>
+                    <option value="WMT">WMT</option>
+                    <option value="XOM">XOM</option>
+                    <option value="MA">MA</option>
+                    <option value="AVGO">AVGO</option>
+                    <option value="JNJ">JNJ</option>
+                    <option value="PG">PG</option>
+                    <option value="ORCL">ORCL</option>
+                    <option value="HD">HD</option>
+                    <option value="ADBE">ADBE</option>
+                    <option value="CVX">CVX</option>
+                    <option value="COST">COST</option>
+                </select>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
 
-    {% if prediction %}
-    <h2>Prediction for {{ ticker }}</h2>
-    <p>Date: {{ prediction['Date'] }}</p>
-    <p>Last Close Price: {{ prediction['Last_Close_Price'] }}</p>
-    <p>10-day Moving Average: {{ prediction['10_day_MA'] }}</p>
-    {% endif %}
+        {% if prediction %}
+        <hr>
+        <h2>Prediction</h2>
+        <div class="prediction-details">
+            <p><strong>Symbol:</strong> {{ prediction['Symbol'] }}</p>
+            <p><strong>Name:</strong> {{ prediction['Name'] }}</p>
+            <p><strong>Recent Date:</strong> {{ prediction['RecentDate'] }}</p>
+            <p><strong>Last Close Price:</strong> {{ prediction['Last Close Price'] }}</p>
+            <p><strong>10 Day moving Average:</strong> {{ prediction['10 Day moving Average'] }}</p>
+            <p><strong>Open:</strong> {{ prediction['Open'] }}</p>
+            <p><strong>High:</strong> {{ prediction['High'] }}</p>
+            <p><strong>Low:</strong> {{ prediction['Low'] }}</p>
+            <p><strong>Country:</strong> {{ prediction['Country'] }}</p>
+            <p><strong>Sector:</strong> {{ prediction['Sector'] }}</p>
+            <p><strong>Industry:</strong> {{ prediction['Industry'] }}</p>
+        </div>
+        {% endif %}
+    </div>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

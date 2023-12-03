@@ -22,11 +22,18 @@ def predict():
         # Get the last row of the data (latest date)
         last_row = stock_data.iloc[0]
 
-        # Extract relevant information
         prediction = {
-            'Date': str(last_row.name),
-            'Last_Close_Price': last_row['close'],
-            '10_day_MA': last_row['10_day_MA']
+            'Name': last_row['Name'],
+            'Symbol': ticker,
+            'RecentDate': last_row['timestamp'],
+            'Last Close Price': last_row['close'],
+            '10 Day moving Average': last_row['10_day_MA'],
+            'Open': last_row['open'],
+            'High': last_row['high'],
+            'Low': last_row['low'],
+            'Country': last_row['Country'],
+            'Sector': last_row['Sector'],
+            'Industry': last_row['Industry']
         }
 
         return render_template('stock_prediction.html', prediction=prediction, ticker=ticker)
