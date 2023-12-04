@@ -31,3 +31,5 @@ torch
 transformers
 flask
 flask_mail
+sqlalchemy
+flask_sqlalchemy

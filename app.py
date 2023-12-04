@@ -2,12 +2,16 @@ from flask import Flask, jsonify, render_template, request, url_for, redirect, s
 import pandas as pd
 import plotly.graph_objects as go
 import base64
+from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 import os  # Import the 'os' module to generate a secret key
 
 app = Flask(__name__)
 
-app.secret_key = os.urandom(24)
+# Configure SQLAlchemy for database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///predictions.db'  # SQLite database file path
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
@@ -17,6 +21,18 @@ app.config['MAIL_PASSWORD'] = 'hmoe jevw caji ewrc'
 app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
+
+# Define the Prediction model for SQLAlchemy
+class Prediction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ticker = db.Column(db.String(10))
+    name = db.Column(db.String(100))
+    recent_date = db.Column(db.String(20))
+    # Add other columns for prediction data
+
+# Create tables in the database (run this once to create the tables)
+with app.app_context():
+    db.create_all()
 
 def generate_time_series_plot(data):
     fig = go.Figure(data=[go.Candlestick(x=data['timestamp'],
@@ -71,10 +87,14 @@ def predict():
         # Generate time series plot
         plot_url = generate_time_series_plot(stock_data)
         
-        # Store the prediction data in the session
-        session['prediction'] = prediction
-        session['ticker'] = ticker
-        session['plot_url'] = plot_url
+        new_prediction = Prediction(
+            ticker=ticker,
+            name=last_row['Name'],
+            recent_date=last_row['timestamp'],
+            # Add other prediction data here
+        )
+        db.session.add(new_prediction)
+        db.session.commit()
 
         return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url)
 
@@ -87,12 +107,19 @@ def send_email():
     try:
         email = request.form['email']
         
-        # Retrieve the prediction data from the session
-        prediction = session.get('prediction')
+        # Retrieve the prediction data from the database (replace this with your logic)
+        prediction = Prediction.query.order_by(Prediction.id.desc()).first()
+
+        # Extract all attributes from the prediction instance dynamically
+        prediction_details = ''
+        for column in Prediction.__table__.columns:
+            column_name = column.name
+            column_value = getattr(prediction, column_name)
+            prediction_details += f"{column_name.capitalize()}: {column_value}\n"
 
         # Your email sending logic using the retrieved prediction data
         msg = Message('Stock Prediction', sender='your_email@gmail.com', recipients=[email])
-        msg.body = 'Your stock prediction details...\n\n' + str(prediction)  # Use the retrieved prediction data in the email body
+        msg.body = 'Your stock prediction details...\n\n' + prediction_details
         mail.send(msg)  # Send the email
 
         # After sending the email, redirect to the success page
@@ -101,6 +128,7 @@ def send_email():
     except Exception as e:
         print(e)  # Print the actual exception for debugging
         return jsonify({'error': str(e)}), 500
+
 
 @app.route('/email_sent')
 def email_sent():
