@@ -123,7 +123,15 @@
                     <option value="COST">COST</option>
                 </select>
             </div>
-            <button type="submit">Predict <span style="font-size: 18px;">🔍</span></button>
+            <button type="submit" name="action" value="predict">Predict <span style="font-size: 18px;">🔍</span></button>
+
+        </form>
+        <form action="/send_email" method="post">
+            <div class="form-group">
+                <label for="email">Enter Your Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <button type="submit">Send Email <span style="font-size: 18px;">📧</span></button>
         </form>
 
         {% if prediction %}

@@ -1,9 +1,22 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, url_for, redirect, session
 import pandas as pd
 import plotly.graph_objects as go
 import base64
+from flask_mail import Mail, Message
+import os  # Import the 'os' module to generate a secret key
 
 app = Flask(__name__)
+
+app.secret_key = os.urandom(24)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'udyansachdev2@gmail.com'
+app.config['MAIL_PASSWORD'] = 'hmoe jevw caji ewrc'
+#app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
 
 def generate_time_series_plot(data):
     fig = go.Figure(data=[go.Candlestick(x=data['timestamp'],
@@ -30,6 +43,7 @@ def index():
 def predict():
     try:
         ticker = request.form['ticker']
+
         # Retrieve historical data
         stock_data = pd.read_csv('Final_Merge.csv')
         stock_data = stock_data[stock_data['Symbol'] == ticker]
@@ -56,13 +70,42 @@ def predict():
 
         # Generate time series plot
         plot_url = generate_time_series_plot(stock_data)
+        
+        # Store the prediction data in the session
+        session['prediction'] = prediction
+        session['ticker'] = ticker
+        session['plot_url'] = plot_url
 
         return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url)
+
+    except Exception as e:
+        print(e)  # Print the actual exception for debugging
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/send_email', methods=['POST'])
+def send_email():
+    try:
+        email = request.form['email']
+        
+        # Retrieve the prediction data from the session
+        prediction = session.get('prediction')
+
+        # Your email sending logic using the retrieved prediction data
+        msg = Message('Stock Prediction', sender='your_email@gmail.com', recipients=[email])
+        msg.body = 'Your stock prediction details...\n\n' + str(prediction)  # Use the retrieved prediction data in the email body
+        mail.send(msg)  # Send the email
+
+        # After sending the email, redirect to the success page
+        return redirect(url_for('email_sent'))  # Assumes 'email_sent' is the endpoint for the success page
     
     except Exception as e:
         print(e)  # Print the actual exception for debugging
         return jsonify({'error': str(e)}), 500
 
+@app.route('/email_sent')
+def email_sent():
+    # Render the success page template after the email is sent
+    return render_template('email_sent.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
