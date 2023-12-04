@@ -5,6 +5,7 @@ import base64
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from sqlalchemy import text
+import http.client, urllib.parse
 
 import os  # Import the 'os' module to generate a secret key
 
@@ -102,7 +103,17 @@ def predict():
 
         # Generate time series plot
         plot_url = generate_time_series_plot(stock_data)
-        
+                # Fetch news data for the selected ticker
+        conn = http.client.HTTPSConnection('api.marketaux.com')
+        params = urllib.parse.urlencode({
+            'api_token': '2YOdCqufLnYAbWCgPU0cZajCbMn8wtkU7Jw4KOmb',
+            'symbols': ticker,  # Fetch news data for selected ticker
+            'limit': 10,
+        })
+        conn.request('GET', '/v1/news/all?{}'.format(params))
+        res = conn.getresponse()
+        news_data = res.read().decode('utf-8')
+
         # Save prediction data to the database
         new_prediction = Prediction(
             ticker=ticker,
@@ -121,7 +132,7 @@ def predict():
         db.session.add(new_prediction)
         db.session.commit()
 
-        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url)
+        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url,news_data=news_data)
 
     except Exception as e:
         print(e)  # Print the actual exception for debugging
@@ -153,7 +164,6 @@ def send_email():
     except Exception as e:
         print(e)  # Print the actual exception for debugging
         return jsonify({'error': str(e)}), 500
-
 
 @app.route('/email_sent')
 def email_sent():
