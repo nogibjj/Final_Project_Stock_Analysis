@@ -4,6 +4,8 @@ import plotly.graph_objects as go
 import base64
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
+from sqlalchemy import text
+
 import os  # Import the 'os' module to generate a secret key
 
 app = Flask(__name__)
@@ -21,6 +23,13 @@ app.config['MAIL_PASSWORD'] = 'hmoe jevw caji ewrc'
 app.config['MAIL_USE_SSL'] = True
 
 mail = Mail(app)
+with app.app_context():
+    db.session.execute(text('DROP TABLE IF EXISTS prediction'))
+    db.session.commit()
+
+# Recreate the Prediction table based on the updated model
+with app.app_context():
+    db.create_all()
 
 # Define the Prediction model for SQLAlchemy
 class Prediction(db.Model):
@@ -28,8 +37,15 @@ class Prediction(db.Model):
     ticker = db.Column(db.String(10))
     name = db.Column(db.String(100))
     recent_date = db.Column(db.String(20))
-    # Add other columns for prediction data
-
+    last_close_price = db.Column(db.Float)  # Adding last_close_price column
+    open_price = db.Column(db.Float)
+    high_price = db.Column(db.Float)
+    low_price = db.Column(db.Float)
+    country = db.Column(db.String(100))
+    sector = db.Column(db.String(100))
+    industry = db.Column(db.String(100))
+    ten_day_ma = db.Column(db.Float)
+    
 # Create tables in the database (run this once to create the tables)
 with app.app_context():
     db.create_all()
@@ -87,11 +103,20 @@ def predict():
         # Generate time series plot
         plot_url = generate_time_series_plot(stock_data)
         
+        # Save prediction data to the database
         new_prediction = Prediction(
             ticker=ticker,
-            name=last_row['Name'],
-            recent_date=last_row['timestamp'],
-            # Add other prediction data here
+            name=last_row['Name'] if 'Name' in last_row else None,
+            recent_date=last_row['timestamp'] if 'timestamp' in last_row else None,
+            last_close_price=last_row['close'] if 'close' in last_row else None,
+            open_price=last_row['open'] if 'open' in last_row else None,
+            high_price=last_row['high'] if 'high' in last_row else None,
+            low_price=last_row['low'] if 'low' in last_row else None,
+            country=last_row['Country'] if 'Country' in last_row else None,
+            sector=last_row['Sector'] if 'Sector' in last_row else None,
+            industry=last_row['Industry'] if 'Industry' in last_row else None,
+            ten_day_ma=last_row['10_day_MA'] if '10_day_MA' in last_row else None
+            # Add other attributes as needed
         )
         db.session.add(new_prediction)
         db.session.commit()
