@@ -152,21 +152,17 @@
         </div>
             {% endif %}
         </div>
+
         {% if news_data %}
         <hr>
         <h2>News Articles for {{ prediction['Symbol'] }}</h2>
         <div class="news-articles">
-            {% for article in news_data %}
-                <div class="article">
-                    <h3>{{ article['title'] }}</h3>
-                    <p>{{ article['published_date'] }}</p>
-                    <p>{{ article['summary'] }}</p>
-                    <p><a href="{{ article['url'] }}" target="_blank">Read more</a></p>
-                </div>
-                <hr>
-            {% endfor %}
+            <div class="article">
+                <p>{{ news_data }}</p>
+            </div>
         </div>
-        {% endif %}
+        <hr>
+            {% endif %}
         <hr>
         <div class="text-center">
             {% if plot_url %}

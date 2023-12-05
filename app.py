@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from sqlalchemy import text
 import http.client, urllib.parse
+import json
 
 import os  # Import the 'os' module to generate a secret key
 
@@ -103,6 +104,7 @@ def predict():
 
         # Generate time series plot
         plot_url = generate_time_series_plot(stock_data)
+        
                 # Fetch news data for the selected ticker
         conn = http.client.HTTPSConnection('api.marketaux.com')
         params = urllib.parse.urlencode({
@@ -112,7 +114,32 @@ def predict():
         })
         conn.request('GET', '/v1/news/all?{}'.format(params))
         res = conn.getresponse()
-        news_data = res.read().decode('utf-8')
+        news_data = res.read()
+
+        json_format = json.loads(news_data.decode('utf-8'))
+        
+        final = []
+        for i in range(0, 3):
+            entities = json_format['data'][i]
+            df = pd.DataFrame(entities.items())
+            df.columns =['metric', 'values']
+            final.append(df)
+
+        # Merge DataFrames based on the 'symbol' column (assuming it's the common column)
+        final_out = final[0]  # Start with the first DataFrame
+        for df in final[1:]:
+            final_out = final_out.merge(df, on='metric', how='left')
+
+        selected_metrics = ['title', 'description', 'snippet', 'url']
+        extracted_data = final_out[final_out['metric'].isin(selected_metrics)]
+        del extracted_data[extracted_data.columns[0]]
+        extracted_data.columns =['News Article 1', 'News Article 2', 'News Article 3']
+        extracted_string = ""
+
+        for column in extracted_data.columns:
+            extracted_string += f"{column.capitalize()}: \n"
+            extracted_string += '\n'.join([f"{value}" for value in extracted_data[column]])
+            extracted_string += "\n\n"
 
         # Save prediction data to the database
         new_prediction = Prediction(
@@ -132,7 +159,7 @@ def predict():
         db.session.add(new_prediction)
         db.session.commit()
 
-        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url,news_data=news_data)
+        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url,news_data=extracted_string)
 
     except Exception as e:
         print(e)  # Print the actual exception for debugging
