@@ -33,3 +33,4 @@ flask
 flask_mail
 sqlalchemy
 flask_sqlalchemy
+finnhub-python

@@ -7,6 +7,10 @@ from flask_mail import Mail, Message
 from sqlalchemy import text
 import http.client, urllib.parse
 import json
+import finnhub
+from datetime import datetime
+import pytz
+import numpy as np
 
 import os  # Import the 'os' module to generate a secret key
 
@@ -80,13 +84,70 @@ def predict():
 
         # Retrieve historical data
         stock_data = pd.read_csv('Final_Merge.csv')
-        stock_data = stock_data[stock_data['Symbol'] == ticker]
+        lst = stock_data['Symbol'].unique().tolist()
+
+        finnhub_client = finnhub.Client(api_key="clla0nhr01qhqdq2t4e0clla0nhr01qhqdq2t4eg")
+
+
+        appended_data = []
+        for i in lst:
+            res = finnhub_client.quote(i)
+            data = pd.DataFrame(res,index=[0])
+            data['Symbol']  = i
+            appended_data.append(data)
+
+        appended_data = pd.concat(appended_data)  
+
+
+        appended_data.columns = ['current/close','change','percent_change','high','low','open','previous_close','timestamp','Symbol']
+
+        # Function to convert epoch timestamp to date in EST
+        def convert_timestamp_to_date(timestamp):
+            # Convert epoch to datetime object
+            date = datetime.fromtimestamp(timestamp)
+            
+            # Define the EST timezone
+            est = pytz.timezone('US/Eastern')
+            
+            # Localize to UTC, then convert to EST
+            date = pytz.utc.localize(date).astimezone(est)
+            
+            # Format the date
+            return date.strftime('%Y-%m-%d')
+
+
+        # Apply the function to the DataFrame column
+        appended_data['timestamp'] = appended_data['timestamp'].apply(convert_timestamp_to_date)
+
+        # Align columns by adding missing columns with NaN values
+        missing_cols_df1 = appended_data.columns.difference(stock_data.columns)
+        missing_cols_df2 = stock_data.columns.difference(appended_data.columns)
+
+        for col in missing_cols_df1:
+            stock_data[col] = np.nan
+
+        for col in missing_cols_df2:
+            appended_data[col] = np.nan
+
+        # Concatenate the DataFrames
+        result = pd.concat([stock_data, appended_data], ignore_index=True)
+
+
+
+        result = result.sort_values(by=['Symbol','timestamp'], ascending=False).reset_index(drop=True)
+
+        result['close'] = result['close'].fillna(result.pop('current/close'))
+
+        result['Name'] = result['Name'].fillna(method='ffill')
+
+
+        result = result[result['Symbol'] == ticker]
 
         # Calculate the 10-day rolling average
-        stock_data['10_day_MA'] = stock_data['close'].rolling(window=10).mean()
+        result['10_day_MA'] = result['close'].rolling(window=10).mean()
         
         # Get the last row of the data (latest date)
-        last_row = stock_data.iloc[0]
+        last_row = result.iloc[0]
 
         prediction = {
             'Name': last_row['Name'],
@@ -103,7 +164,7 @@ def predict():
         }
 
         # Generate time series plot
-        plot_url = generate_time_series_plot(stock_data)
+        plot_url = generate_time_series_plot(result)
         
                 # Fetch news data for the selected ticker
         conn = http.client.HTTPSConnection('api.marketaux.com')
