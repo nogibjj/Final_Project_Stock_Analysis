@@ -134,12 +134,14 @@ def predict():
         extracted_data = final_out[final_out['metric'].isin(selected_metrics)]
         del extracted_data[extracted_data.columns[0]]
         extracted_data.columns =['News Article 1', 'News Article 2', 'News Article 3']
-        extracted_string = ""
+        extracted_data_dict = {col: extracted_data[col].tolist() for col in extracted_data.columns}
 
-        for column in extracted_data.columns:
-            extracted_string += f"{column.capitalize()}: \n"
-            extracted_string += '\n'.join([f"{value}" for value in extracted_data[column]])
-            extracted_string += "\n\n"
+        #extracted_string = ""
+
+        #for column in extracted_data.columns:
+         #   extracted_string += f"{column.capitalize()}: \n"
+          #  extracted_string += '\n'.join([f"{value}" for value in extracted_data[column]])
+           # extracted_string += "\n\n"
 
         # Save prediction data to the database
         new_prediction = Prediction(
@@ -159,7 +161,7 @@ def predict():
         db.session.add(new_prediction)
         db.session.commit()
 
-        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url,news_data=extracted_string)
+        return render_template('stock_prediction.html', prediction=prediction, ticker=ticker, plot_url=plot_url,news_data=extracted_data_dict)
 
     except Exception as e:
         print(e)  # Print the actual exception for debugging
