@@ -192,7 +192,16 @@
         <div class="article">
         <div class="article-title">{{ column.capitalize() }}</div>
         <div class="article-content">
-            <pre>{{ "\n".join(data) }}</pre>
+            {% for line in data %}
+                {% for word in line.split() %}
+                    {% if word.startswith('http://') or word.startswith('https://') %}
+                        <a href="{{ word }}" target="_blank">{{ word }}</a>
+                    {% else %}
+                        {{ word }} 
+                    {% endif %}
+                {% endfor %}
+                <br>
+            {% endfor %}
         </div>
         </div>
     {% endfor %}

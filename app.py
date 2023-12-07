@@ -132,14 +132,15 @@ def predict():
         # Concatenate the DataFrames
         result = pd.concat([stock_data, appended_data], ignore_index=True)
 
-
-
         result = result.sort_values(by=['Symbol','timestamp'], ascending=False).reset_index(drop=True)
 
         result['close'] = result['close'].fillna(result.pop('current/close'))
 
-        result['Name'] = result['Name'].fillna(method='ffill')
+        result['Name'] = result['Name'].bfill()
+        result['Country'] = result['Country'].bfill()
 
+        result['Sector'] = result['Sector'].bfill()
+        result['Industry'] = result['Industry'].bfill()
 
         result = result[result['Symbol'] == ticker]
 
