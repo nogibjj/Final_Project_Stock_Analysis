@@ -1,3 +1,4 @@
+import os
 from flask import Flask, jsonify, render_template, request, url_for, redirect, session
 import pandas as pd
 import plotly.graph_objects as go
@@ -17,9 +18,10 @@ app = Flask(__name__)
 
 ## connection to fetch data from azure database
 connection = sql.connect(
-                        server_hostname = "adb-1767346969741129.9.azuredatabricks.net",
-                        http_path = "/sql/1.0/warehouses/a20e8d116459b6d7",
-                        access_token = "dapib2db61506df9e84e6e932b33e8600dd4-3")
+    server_hostname="adb-1767346969741129.9.azuredatabricks.net",
+    http_path="/sql/1.0/warehouses/a20e8d116459b6d7",
+    access_token="dapib2db61506df9e84e6e932b33e8600dd4-3",
+)
 
 # Configure SQLAlchemy for database
 app.config[
@@ -106,23 +108,28 @@ def predict():
         ticker = request.form["ticker"]
         rows = 1000
         # Retrieve historical data
-        #stock_data = pd.read_csv("Final_Merge.csv")
+        # stock_data = pd.read_csv("Final_Merge.csv")
         connection = sql.connect(
-                                server_hostname = "adb-1767346969741129.9.azuredatabricks.net",
-                                http_path = "/sql/1.0/warehouses/a20e8d116459b6d7",
-                                access_token = "dapib2db61506df9e84e6e932b33e8600dd4-3")
+            server_hostname="adb-1767346969741129.9.azuredatabricks.net",
+            http_path="/sql/1.0/warehouses/a20e8d116459b6d7",
+            access_token="dapib2db61506df9e84e6e932b33e8600dd4-3",
+        )
 
         cursor = connection.cursor()
-        query = "SELECT * FROM historical_data where Ticker = '"+ticker+"' order by timestamp desc limit "+str(rows)
+        query = (
+            "SELECT * FROM historical_data where Ticker = '"
+            + ticker
+            + "' order by timestamp desc limit "
+            + str(rows)
+        )
         cursor.execute(query)
         stock_data = pd.DataFrame(cursor.fetchall())
         stock_data.columns = [desc[0] for desc in cursor.description]
-        stock_data['timestamp'] = pd.to_datetime(stock_data['timestamp'])
-        stock_data['timestamp'] = stock_data['timestamp'].dt.date
+        stock_data["timestamp"] = pd.to_datetime(stock_data["timestamp"])
+        stock_data["timestamp"] = stock_data["timestamp"].dt.date
 
         cursor.close()
         connection.close()
-
 
         finnhub_client = finnhub.Client(
             api_key="clla0nhr01qhqdq2t4e0clla0nhr01qhqdq2t4eg"
@@ -180,9 +187,8 @@ def predict():
             by=["Symbol", "timestamp"], ascending=False
         ).reset_index(drop=True)
 
-
-        ticker_data = pd.read_csv('data/Tickers_Full.csv')
-        result = pd.merge(result,ticker_data,on = 'Ticker',how='left')
+        ticker_data = pd.read_csv("data/Tickers_Full.csv")
+        result = pd.merge(result, ticker_data, on="Ticker", how="left")
         result["close"] = result["close"].fillna(result.pop("current/close"))
         result["Name"] = result["Name"].bfill()
         result["Country"] = result["Country"].bfill()
@@ -190,14 +196,13 @@ def predict():
         result["Sector"] = result["Sector"].bfill()
         result["Industry"] = result["Industry"].bfill()
 
-        #result = result[result["Symbol"] == ticker]
+        # result = result[result["Symbol"] == ticker]
 
         result["10_day_MA"] = result["close"].rolling(window=10).mean().round(3)
         result["10_day_MA"] = result["10_day_MA"].bfill()
 
         # Get the last row of the data (latest date)
         last_row = result.iloc[0]
-
 
         prediction = {
             "Name": last_row["Name"],
@@ -207,7 +212,7 @@ def predict():
             "High": last_row["high"],
             "Low": last_row["low"],
             "Last Close Price": last_row["close"],
-            "Previous Close" : last_row["previous_close"],
+            "Previous Close": last_row["previous_close"],
             "Country": last_row["Country"],
             "Sector": last_row["Sector"],
             "Industry": last_row["Industry"],
@@ -329,4 +334,4 @@ def email_sent():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
