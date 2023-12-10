@@ -77,8 +77,24 @@ condition = "deltaTable.Ticker = new_data.Ticker AND deltaTable.timestamp = new_
 # Use merge
 deltaTable.alias("deltaTable") \
     .merge(new_data.alias("new_data"), condition) \
-    .whenMatchedUpdate(set = {"Ticker": "new_data.Ticker", "timestamp": "new_data.timestamp"}) \
-    .whenNotMatchedInsert(values = {"Ticker": "new_data.Ticker", "timestamp": "new_data.timestamp"}) \
+    .whenMatchedUpdate(set = {
+        "Ticker": "new_data.Ticker", 
+        "timestamp": "new_data.timestamp",
+        "open": "new_data.open", 
+        "high": "new_data.high", 
+        "low": "new_data.low", 
+        "close": "new_data.close", 
+        "volume": "new_data.volume"
+    }) \
+    .whenNotMatchedInsert(values = {
+        "Ticker": "new_data.Ticker", 
+        "timestamp": "new_data.timestamp",
+        "open": "new_data.open", 
+        "high": "new_data.high", 
+        "low": "new_data.low", 
+        "close": "new_data.close", 
+        "volume": "new_data.volume"
+    }) \
     .execute()
 
 # COMMAND ----------
