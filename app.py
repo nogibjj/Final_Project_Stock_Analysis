@@ -192,7 +192,7 @@ def predict():
 
         #result = result[result["Symbol"] == ticker]
 
-        result["10_day_MA"] = result["close"].rolling(window=10).mean()
+        result["10_day_MA"] = result["close"].rolling(window=10).mean().round(3)
         result["10_day_MA"] = result["10_day_MA"].bfill()
 
         # Get the last row of the data (latest date)
