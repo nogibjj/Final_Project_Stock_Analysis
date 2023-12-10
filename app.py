@@ -11,10 +11,15 @@ import finnhub
 from datetime import datetime
 import pytz
 import numpy as np
-
-import os  # Import the 'os' module to generate a secret key
+from databricks import sql
 
 app = Flask(__name__)
+
+## connection to fetch data from azure database
+connection = sql.connect(
+                        server_hostname = "adb-1767346969741129.9.azuredatabricks.net",
+                        http_path = "/sql/1.0/warehouses/a20e8d116459b6d7",
+                        access_token = "dapib2db61506df9e84e6e932b33e8600dd4-3")
 
 # Configure SQLAlchemy for database
 app.config[
@@ -99,23 +104,33 @@ def index():
 def predict():
     try:
         ticker = request.form["ticker"]
-
+        rows = 1000
         # Retrieve historical data
-        stock_data = pd.read_csv("Final_Merge.csv")
-        lst = stock_data["Symbol"].unique().tolist()
+        #stock_data = pd.read_csv("Final_Merge.csv")
+        connection = sql.connect(
+                                server_hostname = "adb-1767346969741129.9.azuredatabricks.net",
+                                http_path = "/sql/1.0/warehouses/a20e8d116459b6d7",
+                                access_token = "dapib2db61506df9e84e6e932b33e8600dd4-3")
+
+        cursor = connection.cursor()
+        query = "SELECT * FROM historical_data where Ticker = '"+ticker+"' order by timestamp desc limit "+str(rows)
+        cursor.execute(query)
+        stock_data = pd.DataFrame(cursor.fetchall())
+        stock_data.columns = [desc[0] for desc in cursor.description]
+        stock_data['timestamp'] = pd.to_datetime(stock_data['timestamp'])
+        stock_data['timestamp'] = stock_data['timestamp'].dt.date
+
+        cursor.close()
+        connection.close()
+
 
         finnhub_client = finnhub.Client(
             api_key="clla0nhr01qhqdq2t4e0clla0nhr01qhqdq2t4eg"
         )
 
-        appended_data = []
-        for i in lst:
-            res = finnhub_client.quote(i)
-            data = pd.DataFrame(res, index=[0])
-            data["Symbol"] = i
-            appended_data.append(data)
-
-        appended_data = pd.concat(appended_data)
+        res = finnhub_client.quote(ticker)
+        appended_data = pd.DataFrame(res, index=[0])
+        appended_data["Symbol"] = ticker
 
         appended_data.columns = [
             "current/close",
@@ -165,30 +180,34 @@ def predict():
             by=["Symbol", "timestamp"], ascending=False
         ).reset_index(drop=True)
 
-        result["close"] = result["close"].fillna(result.pop("current/close"))
 
+        ticker_data = pd.read_csv('data/Tickers_Full.csv')
+        result = pd.merge(result,ticker_data,on = 'Ticker',how='left')
+        result["close"] = result["close"].fillna(result.pop("current/close"))
         result["Name"] = result["Name"].bfill()
         result["Country"] = result["Country"].bfill()
-
+        result["Ticker"] = result["Ticker"].bfill()
         result["Sector"] = result["Sector"].bfill()
         result["Industry"] = result["Industry"].bfill()
 
-        result = result[result["Symbol"] == ticker]
+        #result = result[result["Symbol"] == ticker]
 
-        # Calculate the 10-day rolling average
         result["10_day_MA"] = result["close"].rolling(window=10).mean()
+        result["10_day_MA"] = result["10_day_MA"].bfill()
 
         # Get the last row of the data (latest date)
         last_row = result.iloc[0]
+
 
         prediction = {
             "Name": last_row["Name"],
             "Symbol": ticker,
             "RecentDate": last_row["timestamp"],
-            "Last Close Price": last_row["close"],
             "Open": last_row["open"],
             "High": last_row["high"],
             "Low": last_row["low"],
+            "Last Close Price": last_row["close"],
+            "Previous Close" : last_row["previous_close"],
             "Country": last_row["Country"],
             "Sector": last_row["Sector"],
             "Industry": last_row["Industry"],
