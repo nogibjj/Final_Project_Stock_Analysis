@@ -34,3 +34,7 @@ flask_mail
 sqlalchemy
 flask_sqlalchemy
 finnhub-python
+
+#Connect to DB
+databricks
+databricks-sql-connector
