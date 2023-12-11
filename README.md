@@ -7,17 +7,24 @@ The link to the application : https://definalproj.azurewebsites.net/
 
 Here is the working function of the app : 
 
-### Home Page :
+### Home Page : 
+This is the landing page of our application which takes two inputs : 
+1. The stock that needs to be predicted.
+2. The email where the prediction needs to be sent. 
 
 ![Home Page](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/App%20Home%20page.png)
 
 ### Stock Prediction : 
+These are the results of our application as displayed on the webpage. 
+- Information and Predictions of the stock price
 ![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction.png)
 
 ### News Articles relevant to the stock : 
+- Latest articles to make an informed decision before buying a stock. 
 ![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/News%20Articles.png)
 
 ### Personalized Stock Prediction Mail : 
+- Personalized mail to offer predictions. 
 ![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction%20Mail.png)
 
 
