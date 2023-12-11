@@ -6,22 +6,20 @@
 [![Test](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml)
 
 ## Overview :
-The application is designed to predict the stock price of a share by utilizing datasets from past 20 years and making predicions using live stock market data.
+The application is designed to analyze the stock price of a share by utilizing datasets from past 20 years and using live stock market data.
 
 The link to the application : [App](https://definalproj.azurewebsites.net/)
 
 The link to the video describing the repository : [Video](https://www.youtube.com/watch?v=hJKhQFhQiTI)
 
-This repository contains a `Flask App` which has LLM functionality built into it, The APP is also hosted on `Azure` for public access. The project makes use of `Delta Tables` from `Databricks`, builds a docker image hosted on `DockerHub` and utilizes `Azure Web App` for deployment. Further, the project uses various `APIs` to interact with external websites for getting data to make predictions. 
+This repository contains a `Flask App` which is also hosted on `Azure` for public access. The project makes use of `Delta Tables` from `Databricks`,  a docker image hosted on `DockerHub` and utilizes `Azure Web App` for deployment. Further, the project uses various `APIs` to interact with external websites for getting data to make predictions. 
 
 The App can be run by the user locally or can be accessed via the link provided earlier.
 The following image represents the `architectural diagram` of our project :
 
 ![Architectural Diagram](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/DE_Final_Schema.png)
 
-## Stock Prediction App :
-
-Here is the working function of the app : 
+## Functioning of the App :
 
 ### Home Page : 
 This is the landing page of our application which takes two inputs : 
@@ -44,7 +42,7 @@ Latest articles to make an informed decision before buying a stock
 ![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/News%20Articles.png)
 
 #### 3. Time Series Plot   : 
-The plot enables the user for Stock Price Visualization and Analysis
+Provides The historical data trends in a candle chart for visual analysis of the stock
 
 ![Visualization](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Time%20Series%20Plot.png)
 
@@ -55,6 +53,8 @@ Personalized Prediction mail
 
 ## Instructions to Setup
 A. Online: Visit the Link provided earlier and no additional steps are required. 
+
+Note: The web app may not be available in case the Azure service is shut due to exhaustion of credits, please use the offline method mentioned below if the Web app is not available.
 
 B. Offline:
 
@@ -131,10 +131,10 @@ Files in this repository include:
   This folder contains all the code files used in this repository - the files named "Test_" will be used for testing and the remaining will define certain functions
 
 
-## 4. Resources and Templates
-  -  This folder contains any other files relevant to this project. 
-    -  `index.html` - an HTML File containing the front end view of the text generator page
-    -  `result.html` - an HTML File containing the result view of the text generator model
+## 4. Templates
+  -  This folder contains the HTML templates which will be used by the Flask Application. 
+    -  `stock_prediction.html` - an HTML File containing the landing page view for the app
+    -  `email_sent.html` - an HTML File containing the view for when the email is sent to the user
 
 
 ## 5. CI/CD Automation Files
@@ -168,15 +168,15 @@ Note -if all the processes run successfully the following output will be visible
   * `devcontainer.json` is a json file that specifies the environment variables including the installed extensions in the virtual environment
 
 ## 6. Data
-The CSV data file is stored here for quick access
+Contains CSV and Parquet files used for initial loads and fast acccess
 
 ## 7. resources
 contains additonal files which are used in the README
 
-## 9. Dockerfile:
+## 8. Dockerfile:
 This is the dockerfile which contains intructions for the Dockerimage construction, this is for the app and is different from the dockerfile present in the .devcontainer folder
 
-## 10. Templates
+## 9. Templates
 Contains the HTML files which will be used by Flask for the Landing and Result pages
 
 
@@ -190,5 +190,4 @@ Udyan Sachdev (us26)
 
 Ayush Gupta (ag758)
 
-`Teamwork Reflection` : Please find the teamwork reflection in the teamwork folder in this repository. 
-https://github.com/nogibjj/Final_Project_Stock_Analysis/tree/main/teamwork
+`Teamwork Reflection` : Please find the teamwork reflection in the [teamwork](teamwork) folder in this repository. 
