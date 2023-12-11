@@ -1,5 +1,27 @@
 # Financial Stock Analysis
 
+## Stock Prediction App :
+The application is designed to predict the stock price of a share by utilizing datasets from past 20 years and making predicions using live stock market data.
+
+The link to the application : https://definalproj.azurewebsites.net/
+
+Here is the working function of the app : 
+
+`Home Page` :
+
+![Home Page](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/App%20Home%20page.png)
+
+`Stock Prediction : `
+![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction.png)
+
+`News Articles relevant to the stock : `
+![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/News%20Articles.png)
+
+`Personalized Stock Prediction Mail : `
+![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction%20Mail.png)
+
+
+
 
 ## Microservice
 
