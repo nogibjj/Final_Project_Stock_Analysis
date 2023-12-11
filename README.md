@@ -133,8 +133,8 @@ Files in this repository include:
 
 ## 4. Templates
 This folder contains the HTML templates which will be used by the Flask Application. 
-    1. `stock_prediction.html` - an HTML File containing the landing page view for the app
-    2. `email_sent.html` - an HTML File containing the view for when the email is sent to the user
+  1. stock_prediction.html - an HTML File containing the landing page view for the app
+  2. email_sent.html - an HTML File containing the view for when the email is sent to the user
 
 
 ## 5. CI/CD Automation Files
