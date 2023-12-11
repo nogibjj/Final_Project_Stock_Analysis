@@ -124,7 +124,7 @@ Files in this repository include:
 
 
 ## 2. Requirements
-  The `requirements.txt` file has a list of packages to be installed for any required project. Currently, my requirements file contains some basic python packages.
+  The `requirements.txt` file has a list of packages to be installed for runnning the project. 
 
 
 ## 3. Codes
@@ -132,9 +132,9 @@ Files in this repository include:
 
 
 ## 4. Templates
-  -  This folder contains the HTML templates which will be used by the Flask Application. 
-    -  `stock_prediction.html` - an HTML File containing the landing page view for the app
-    -  `email_sent.html` - an HTML File containing the view for when the email is sent to the user
+This folder contains the HTML templates which will be used by the Flask Application. 
+    1. `stock_prediction.html` - an HTML File containing the landing page view for the app
+    2. `email_sent.html` - an HTML File containing the view for when the email is sent to the user
 
 
 ## 5. CI/CD Automation Files
@@ -176,8 +176,6 @@ contains additonal files which are used in the README
 ## 8. Dockerfile:
 This is the dockerfile which contains intructions for the Dockerimage construction, this is for the app and is different from the dockerfile present in the .devcontainer folder
 
-## 9. Templates
-Contains the HTML files which will be used by Flask for the Landing and Result pages
 
 
 
