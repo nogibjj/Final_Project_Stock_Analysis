@@ -16,7 +16,7 @@ This is the landing page of our application which takes two inputs :
 
 ### Output  of the Application: 
 
-#### Home Page
+#### Stock Prediction
 These are the results of our application as displayed on the webpage. 
 - Information and Predictions of the stock price
 ![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction.png)
