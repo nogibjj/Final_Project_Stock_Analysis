@@ -20,7 +20,7 @@ This is the landing page of our application which takes two inputs :
 ![Home Page](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/App%20Home%20page.png)
 
 ### Output  of the Application: 
-https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/build.png
+The following are the functions of our application:
 
 #### 1. Stock Price Prediction
 Information and Predictions of the stock price
