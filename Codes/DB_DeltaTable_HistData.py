@@ -9,9 +9,7 @@ import pandas as pd
 
 # Reading the historical data for 20 years from the parquet file
 # Initialize Spark Session
-spark = SparkSession.builder \
-    .appName("Parquet to Delta") \
-    .getOrCreate()
+spark = SparkSession.builder.appName("Parquet to Delta").getOrCreate()
 
 # Read the parquet file
 df = pd.read_parquet("../data/processed_20.parquet")
@@ -26,9 +24,7 @@ spark_df.write.format("delta").mode("overwrite").saveAsTable("historical_data")
 # COMMAND ----------
 
 # Initialize Spark Session
-spark = SparkSession.builder \
-    .appName("Change Delta Table Schema") \
-    .getOrCreate()
+spark = SparkSession.builder.appName("Change Delta Table Schema").getOrCreate()
 
 # Read the Delta table
 df = spark.read.format("delta").load("/user/hive/warehouse/historical_data")
@@ -37,4 +33,9 @@ df = spark.read.format("delta").load("/user/hive/warehouse/historical_data")
 df = df.withColumn("timestamp", to_date(col("timestamp")))
 
 # Write the DataFrame back to the Delta table
-df.write.format("delta").mode("overwrite").save("/user/hive/warehouse/historical_data_stocks")
+df.write.format("delta").mode("overwrite").save(
+    "/user/hive/warehouse/historical_data_stocks"
+)
+
+
+# ruff : noqa

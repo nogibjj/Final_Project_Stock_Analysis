@@ -21,19 +21,23 @@ tickers
 
 # COMMAND ----------
 
-tickers = pd.read_csv('../data/Tickers.csv')
+tickers = pd.read_csv("../data/Tickers.csv")
 df_list = []
-for i in tickers['Ticker']:
+for i in tickers["Ticker"]:
     try:
-        query = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+i+"&apikey=B434MFNHO276GM45&datatype=csv"
-    
-        #Load the data from the API
-        df = pd.read_csv(query)
-    
-        #Adding column for ticker
-        df['Ticker'] = i
+        query = (
+            "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
+            + i
+            + "&apikey=B434MFNHO276GM45&datatype=csv"
+        )
 
-        #Adding the data to the list
+        # Load the data from the API
+        df = pd.read_csv(query)
+
+        # Adding column for ticker
+        df["Ticker"] = i
+
+        # Adding the data to the list
         df_list.append(df)
     except:
         print(f"Error occoured for {i}")
@@ -72,37 +76,39 @@ new_data = spark_df
 deltaTable = DeltaTable.forPath(spark, "/user/hive/warehouse/historical_data")
 
 # Define the merge condition
-condition = "deltaTable.Ticker = new_data.Ticker AND deltaTable.timestamp = new_data.timestamp"
+condition = (
+    "deltaTable.Ticker = new_data.Ticker AND deltaTable.timestamp = new_data.timestamp"
+)
 
 # Use merge
-deltaTable.alias("deltaTable") \
-    .merge(new_data.alias("new_data"), condition) \
-    .whenMatchedUpdate(set = {
-        "Ticker": "new_data.Ticker", 
+deltaTable.alias("deltaTable").merge(
+    new_data.alias("new_data"), condition
+).whenMatchedUpdate(
+    set={
+        "Ticker": "new_data.Ticker",
         "timestamp": "new_data.timestamp",
-        "open": "new_data.open", 
-        "high": "new_data.high", 
-        "low": "new_data.low", 
-        "close": "new_data.close", 
-        "volume": "new_data.volume"
-    }) \
-    .whenNotMatchedInsert(values = {
-        "Ticker": "new_data.Ticker", 
+        "open": "new_data.open",
+        "high": "new_data.high",
+        "low": "new_data.low",
+        "close": "new_data.close",
+        "volume": "new_data.volume",
+    }
+).whenNotMatchedInsert(
+    values={
+        "Ticker": "new_data.Ticker",
         "timestamp": "new_data.timestamp",
-        "open": "new_data.open", 
-        "high": "new_data.high", 
-        "low": "new_data.low", 
-        "close": "new_data.close", 
-        "volume": "new_data.volume"
-    }) \
-    .execute()
+        "open": "new_data.open",
+        "high": "new_data.high",
+        "low": "new_data.low",
+        "close": "new_data.close",
+        "volume": "new_data.volume",
+    }
+).execute()
 
 # COMMAND ----------
 
 # Initialize Spark Session
-spark = SparkSession.builder \
-    .appName("Change Delta Table Schema") \
-    .getOrCreate()
+spark = SparkSession.builder.appName("Change Delta Table Schema").getOrCreate()
 
 # Read the Delta table
 df = spark.read.format("delta").load("/user/hive/warehouse/historical_data")
@@ -111,7 +117,9 @@ df = spark.read.format("delta").load("/user/hive/warehouse/historical_data")
 df = df.withColumn("timestamp", to_date(col("timestamp")))
 
 # Write the DataFrame back to the Delta table
-df.write.format("delta").mode("overwrite").save("/user/hive/warehouse/historical_data_stocks")
+df.write.format("delta").mode("overwrite").save(
+    "/user/hive/warehouse/historical_data_stocks"
+)
 
 # COMMAND ----------
 
@@ -134,7 +142,9 @@ print("Max timestamp: ", max_timestamp)
 df = deltaTable.toDF()
 
 # Get the last 30 distinct timestamps
-last_30_distinct_timestamps = df.select("timestamp").distinct().orderBy(col("timestamp").desc()).limit(30)
+last_30_distinct_timestamps = (
+    df.select("timestamp").distinct().orderBy(col("timestamp").desc()).limit(30)
+)
 
 # Show the result
 last_30_distinct_timestamps.show()
@@ -154,3 +164,5 @@ if non_unique_records.count() == 0:
     print("The table is unique at the 'timestamp' + 'Ticker' level.")
 else:
     print("The table is not unique at the 'timestamp' + 'Ticker' level.")
+
+# ruff : noqa

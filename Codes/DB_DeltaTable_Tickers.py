@@ -9,9 +9,7 @@ import pandas as pd
 
 # Reading the ticker symbols from the csv file
 # Initialize Spark Session
-spark = SparkSession.builder \
-    .appName("CSV to Delta") \
-    .getOrCreate()
+spark = SparkSession.builder.appName("CSV to Delta").getOrCreate()
 
 from pyspark.sql.functions import col
 
@@ -32,3 +30,6 @@ spark.conf.set("spark.databricks.delta.schema.autoMerge.enabled", "true")
 
 # Write the spark DataFrame to a Delta table
 spark_df.write.format("delta").mode("overwrite").saveAsTable("ticker_symbols")
+
+
+# ruff : noqa

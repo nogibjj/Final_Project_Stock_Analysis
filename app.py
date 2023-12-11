@@ -1,12 +1,21 @@
 import os
-from flask import Flask, jsonify, render_template, request, url_for, redirect, session
+from flask import (
+    Flask,
+    jsonify,
+    render_template,
+    request,
+    url_for,
+    redirect,
+    session,  # noqa F401
+)
 import pandas as pd
 import plotly.graph_objects as go
 import base64
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from sqlalchemy import text
-import http.client, urllib.parse
+import http.client
+import urllib.parse
 import json
 import finnhub
 from datetime import datetime
