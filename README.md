@@ -47,9 +47,6 @@ Automated via GitHub Actions, this pipeline ensures code quality through formatt
 ## Demo Video
 [Link]()
 
-## Team Members
-
-
 #
 
 ## File Index
@@ -91,3 +88,9 @@ Files in this repository include:
   The `.devcontainer` folder mainly contains two files - 
   * `Dockerfile` defines the environment variables - essentially it ensures that all collaborators using the repository are working on the same environment to avoid conflicts and version mismatch issues
   * `devcontainer.json` is a json file that specifies the environment variables including the installed extensions in the virtual environment
+
+## Team Members
+Divya Sharma
+Revanth Chowdary Ganga
+Udyan Sachdev
+Ayush Gupta
