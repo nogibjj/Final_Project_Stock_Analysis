@@ -81,9 +81,6 @@ Here's how this project satisfies the Infrastructure as Code requirement:
 
 `Data Pipeline Setup:` The setup of the data pipeline (from API to Delta Lake in Azure Workspaces) is automated using Azure Workflows that are scheduled to run daily, this is another example of Infrastructure as Code.
 
-## Continuous Integration and Continuous Delivery (CI/CD)
-Automated via GitHub Actions, this pipeline ensures code quality through formatting, linting, and dependency management. Triggered on pushes, pull requests, or manual execution, it streamlines the build process and welcomes contributions for testing, deployment automation, and notification enhancements.
-
 ## Quantitative Assessment
 -    The load test results are available in the `results` folder. The system performance showed that the median response time increased after ~ 18,000 users
 
@@ -127,13 +124,35 @@ Files in this repository include:
 
   ### 5(b). Github Actions
   Github Actions uses the `main.yml` file to call the functions defined in the Makefile based on triggers such as push or pull. Currently, every time a change is pushed onto the repository, it runs the install packages, formatting the code, linting the code, and then testing the code functions
+`install :` installs the packages and libraries mentioned in the requirements.txt
 
+`test :` uses pytest to test the python script
+
+`format :` uses black to format the python files
+
+`lint :` uses ruff to lint the python files
+
+Note -if all the processes run successfully the following output will be visible in github actions:
 
   ### 5(c). Devcontainer
   
   The `.devcontainer` folder mainly contains two files - 
   * `Dockerfile` defines the environment variables - essentially it ensures that all collaborators using the repository are working on the same environment to avoid conflicts and version mismatch issues
   * `devcontainer.json` is a json file that specifies the environment variables including the installed extensions in the virtual environment
+
+## 6. Data
+The CSV data file is stored here for quick access
+
+## 7. resources
+contains additonal files which are used in the README
+
+## 9. Dockerfile:
+This is the dockerfile which contains intructions for the Dockerimage construction, this is for the app and is different from the dockerfile present in the .devcontainer folder
+
+## 10. Templates
+Contains the HTML files which will be used by Flask for the Landing and Result pages
+
+
 
 ## Team Members
 Divya Sharma (ds655)
@@ -143,3 +162,5 @@ Revanth Chowdary Ganga (rg361)
 Udyan Sachdev (us26)
 
 Ayush Gupta (ag758)
+
+
