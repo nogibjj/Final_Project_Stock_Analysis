@@ -1,5 +1,13 @@
 # Financial Stock Analysis
 
+[![Format](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/format.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/format.yml)
+
+[![Install](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/install.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/install.yml)
+
+[![Lint](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/lint.yml)
+
+[![Test](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml)
+
 ## Stock Prediction App :
 The application is designed to predict the stock price of a share by utilizing datasets from past 20 years and making predicions using live stock market data.
 
@@ -68,7 +76,7 @@ This combination of tools offers a powerful suite for managing, analyzing, and p
 ## Infrastructure as Code (IaC)
 Infrastructure as Code (IaC) is a practice in which the infrastructure setup is written in code files, rather than manually configured. These code files can be version-controlled and reviewed, allowing for easy changes and rapid disaster recovery.
 
-Here's how your project satisfies the Infrastructure as Code requirement:
+Here's how this project satisfies the Infrastructure as Code requirement:
 
 `Dockerization:` We have containerized the application using Docker. The Dockerfile serves as a form of Infrastructure as Code, as it automates the process of setting up the application environment.
 
@@ -78,9 +86,6 @@ Here's how your project satisfies the Infrastructure as Code requirement:
 
 ## Continuous Integration and Continuous Delivery (CI/CD)
 Automated via GitHub Actions, this pipeline ensures code quality through formatting, linting, and dependency management. Triggered on pushes, pull requests, or manual execution, it streamlines the build process and welcomes contributions for testing, deployment automation, and notification enhancements.
-
-## GitHub Configurations
-    `Your GitHub repository must include GitHub Actions and a .devcontainer configuration for GitHub Codespaces. This should make the local version of your project completely reproducible. The repository should also include GitHub Action build badges for install, lint, test, and format actions.`
 
 ## Quantitative Assessment
 -    The load test results are available in the `results` folder. The system performance showed that the median response time increased after ~ 18,000 users
