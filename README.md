@@ -32,7 +32,9 @@ Personalized mail about Predictions
 
 ![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
 
+## Architectural Diagram
 
+![Architectural Diagram](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/DE_Final_Schema.png)
 
 
 ## Microservice
@@ -74,9 +76,6 @@ Here's how your project satisfies the Infrastructure as Code requirement:
 
 ## Continuous Integration and Continuous Delivery (CI/CD)
 Automated via GitHub Actions, this pipeline ensures code quality through formatting, linting, and dependency management. Triggered on pushes, pull requests, or manual execution, it streamlines the build process and welcomes contributions for testing, deployment automation, and notification enhancements.
-
-## Architectural Diagram
-    `A clear diagram representing the architecture of your application should be included in your project documentation.`
 
 ## GitHub Configurations
     `Your GitHub repository must include GitHub Actions and a .devcontainer configuration for GitHub Codespaces. This should make the local version of your project completely reproducible. The repository should also include GitHub Action build badges for install, lint, test, and format actions.`
