@@ -136,10 +136,10 @@ Files in this repository include:
   * `devcontainer.json` is a json file that specifies the environment variables including the installed extensions in the virtual environment
 
 ## Team Members
-Divya Sharma
+Divya Sharma (ds655)
 
-Revanth Chowdary Ganga
+Revanth Chowdary Ganga (rg361)
 
-Udyan Sachdev
+Udyan Sachdev (us26)
 
-Ayush Gupta
+Ayush Gupta (ag758)
