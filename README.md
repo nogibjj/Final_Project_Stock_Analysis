@@ -34,6 +34,8 @@ Personalized mail about Predictions
 
 ## Architectural Diagram
 
+The following image represents the entire architecture that this projects employs. 
+
 ![Architectural Diagram](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/DE_Final_Schema.png)
 
 
