@@ -48,6 +48,20 @@ Personalized Prediction mail
 
 ![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
 
+## Instructions to Setup
+A. Online: Visit the Link provided earlier and no additional steps are required. 
+
+B. Offline:
+
+1. Clone This repository to your local machine.
+
+2. Perform a `make install` to install all the required packages and libraries
+
+3. Enter the following command into the Terminal:
+`python app.py`
+
+4. click on the Links which are shown in the terminal
+
 
 ## Microservice
 
