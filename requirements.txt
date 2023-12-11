@@ -14,8 +14,6 @@ uvicorn==0.18.3
 jupyter
 pandas
 numpy
-plotly
-polars
 pyarrow
 ipynb
 black_nbconvert
@@ -23,12 +21,6 @@ ruff
 nbval
 nbqa
 pytest-playwright
-kaleido
-matplotlib
-seaborn
-torchvision
-torch
-transformers
 flask
 flask_mail
 sqlalchemy
