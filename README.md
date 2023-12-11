@@ -1,5 +1,10 @@
 # Financial Stock Analysis
 
+[![Format](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/format.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/format.yml)
+[![Install](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/install.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/install.yml)
+[![Lint](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/lint.yml)
+[![Test](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml)
+
 ## Stock Prediction App :
 The application is designed to predict the stock price of a share by utilizing datasets from past 20 years and making predicions using live stock market data.
 
@@ -12,27 +17,31 @@ This is the landing page of our application which takes two inputs :
 1. The stock that needs to be predicted.
 2. The email where the prediction needs to be sent. 
 
-![Home Page](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/App%20Home%20page.png)
+![Home Page](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/App%20Home%20page.png)
 
 ### Output  of the Application: 
+The following are the functions of our application:
 
 #### 1. Stock Price Prediction
-These are the results of our application as displayed on the webpage. 
 Information and Predictions of the stock price
   
-![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction.png)
+![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction_appl.png)
 
 #### 2. News Articles relevant to the stock : 
-Latest articles to make an informed decision before buying a stock.
+Latest articles to make an informed decision before buying a stock
   
-![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/News%20Articles.png)
+![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/News%20Articles.png)
 
 #### 3. Personalized Stock Prediction Mail Service : 
-Personalized mail about Predictions
+Personalized Prediction mail
 
-![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction%20Mail.png)
+![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
 
+## Architectural Diagram
 
+The following image represents the entire architecture that this projects employs. 
+
+![Architectural Diagram](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/DE_Final_Schema.png)
 
 
 ## Microservice
@@ -64,22 +73,13 @@ This combination of tools offers a powerful suite for managing, analyzing, and p
 ## Infrastructure as Code (IaC)
 Infrastructure as Code (IaC) is a practice in which the infrastructure setup is written in code files, rather than manually configured. These code files can be version-controlled and reviewed, allowing for easy changes and rapid disaster recovery.
 
-Here's how your project satisfies the Infrastructure as Code requirement:
+Here's how this project satisfies the Infrastructure as Code requirement:
 
 `Dockerization:` We have containerized the application using Docker. The Dockerfile serves as a form of Infrastructure as Code, as it automates the process of setting up the application environment.
 
 `Hosting on Azure ACR:` We have used Azure Resource Manager (ARM) templates scripts to automate the deployment of your Docker containers to Azure ACR, this is also a form of Infrastructure as Code.
 
 `Data Pipeline Setup:` The setup of the data pipeline (from API to Delta Lake in Azure Workspaces) is automated using Azure Workflows that are scheduled to run daily, this is another example of Infrastructure as Code.
-
-## Continuous Integration and Continuous Delivery (CI/CD)
-Automated via GitHub Actions, this pipeline ensures code quality through formatting, linting, and dependency management. Triggered on pushes, pull requests, or manual execution, it streamlines the build process and welcomes contributions for testing, deployment automation, and notification enhancements.
-
-## Architectural Diagram
-    `A clear diagram representing the architecture of your application should be included in your project documentation.`
-
-## GitHub Configurations
-    `Your GitHub repository must include GitHub Actions and a .devcontainer configuration for GitHub Codespaces. This should make the local version of your project completely reproducible. The repository should also include GitHub Action build badges for install, lint, test, and format actions.`
 
 ## Quantitative Assessment
 -    The load test results are available in the `results` folder. The system performance showed that the median response time increased after ~ 18,000 users
@@ -90,9 +90,8 @@ Automated via GitHub Actions, this pipeline ensures code quality through formatt
 ## Demo Video
 [Link]()
 
-#
 
-## File Index
+## Contents 
 
 Files in this repository include:
 
@@ -125,6 +124,19 @@ Files in this repository include:
   ### 5(b). Github Actions
   Github Actions uses the `main.yml` file to call the functions defined in the Makefile based on triggers such as push or pull. Currently, every time a change is pushed onto the repository, it runs the install packages, formatting the code, linting the code, and then testing the code functions
 
+![build](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/build.png)
+
+`install :` installs the packages and libraries mentioned in the requirements.txt
+
+`test :` uses pytest to test the python script
+
+![test](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/test.png)
+
+`format :` uses black to format the python files
+
+`lint :` uses ruff to lint the python files
+
+Note -if all the processes run successfully the following output will be visible in github actions:
 
   ### 5(c). Devcontainer
   
@@ -132,11 +144,27 @@ Files in this repository include:
   * `Dockerfile` defines the environment variables - essentially it ensures that all collaborators using the repository are working on the same environment to avoid conflicts and version mismatch issues
   * `devcontainer.json` is a json file that specifies the environment variables including the installed extensions in the virtual environment
 
+## 6. Data
+The CSV data file is stored here for quick access
+
+## 7. resources
+contains additonal files which are used in the README
+
+## 9. Dockerfile:
+This is the dockerfile which contains intructions for the Dockerimage construction, this is for the app and is different from the dockerfile present in the .devcontainer folder
+
+## 10. Templates
+Contains the HTML files which will be used by Flask for the Landing and Result pages
+
+
+
 ## Team Members
-Divya Sharma
+Divya Sharma (ds655)
 
-Revanth Chowdary Ganga
+Revanth Chowdary Ganga (rg361)
 
-Udyan Sachdev
+Udyan Sachdev (us26)
 
-Ayush Gupta
+Ayush Gupta (ag758)
+
+
