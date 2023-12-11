@@ -24,7 +24,7 @@ These are the results of our application as displayed on the webpage.
 ![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/News%20Articles.png)
 
 ### Personalized Stock Prediction Mail : 
-- Personalized mail to offer predictions. 
+- Personalized mail about Predictions 
 ![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/images/Prediction%20Mail.png)
 
 
