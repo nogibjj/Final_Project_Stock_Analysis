@@ -20,7 +20,7 @@ This is the landing page of our application which takes two inputs :
 These are the results of our application as displayed on the webpage. 
 Information and Predictions of the stock price
   
-![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction.png)
+![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction_appl.png)
 
 #### 2. News Articles relevant to the stock : 
 Latest articles to make an informed decision before buying a stock.
