@@ -20,20 +20,20 @@ This is the landing page of our application which takes two inputs :
 ![Home Page](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/App%20Home%20page.png)
 
 ### Output  of the Application: 
+https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/build.png
 
 #### 1. Stock Price Prediction
-These are the results of our application as displayed on the webpage. 
 Information and Predictions of the stock price
   
 ![Prediction](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction_appl.png)
 
 #### 2. News Articles relevant to the stock : 
-Latest articles to make an informed decision before buying a stock.
+Latest articles to make an informed decision before buying a stock
   
 ![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/News%20Articles.png)
 
 #### 3. Personalized Stock Prediction Mail Service : 
-Personalized mail about Predictions
+Personalized Prediction mail
 
 ![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
 
