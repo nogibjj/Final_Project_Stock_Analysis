@@ -124,8 +124,8 @@ Files in this repository include:
   ### 5(b). Github Actions
   Github Actions uses the `main.yml` file to call the functions defined in the Makefile based on triggers such as push or pull. Currently, every time a change is pushed onto the repository, it runs the install packages, formatting the code, linting the code, and then testing the code functions
 
-![Build](![test](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/test.png))
-  
+![build](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/build.png)
+
 `install :` installs the packages and libraries mentioned in the requirements.txt
 
 `test :` uses pytest to test the python script
