@@ -10,7 +10,7 @@ The application is designed to predict the stock price of a share by utilizing d
 
 The link to the application : https://definalproj.azurewebsites.net/
 
-The link to the video describing the repository : [Link]()
+The link to the video describing the repository : [Link](https://studio.youtube.com/channel/UCD8fu1UvT2kHgqYB7bd886Q)
 
 This repository contains a `Flask App` which has LLM functionality built into it, The APP is also hosted on `Azure` for public access. The project makes use of `Delta Tables` from `Databricks`, builds a docker image hosted on `DockerHub` and utilizes `Azure Web App` for deployment. Further, the project uses various `APIs` to interact with external websites for getting data to make predictions. 
 
