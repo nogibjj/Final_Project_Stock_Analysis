@@ -13,10 +13,19 @@
 ![Load_Test_Results](/results/Load_Test_v1.png)
 
 ## Data Engineering
--   The application used Pandas for data analysis
--   The application used PySpark for data wrangling manipulation
--   The application used Spark SQL for data querying and ETL
--   The application used Delta Lake for data storage
+- This application is designed for robust data engineering tasks leveraging a variety of tools:
+
+`Pandas for Data Analysis:` Utilizes Pandas for comprehensive data analysis tasks within a Python environment.
+
+`PySpark for Data Wrangling:` Leverages PySpark to efficiently manipulate and transform large-scale datasets.
+
+`Spark SQL for Data Querying and ETL:` Employs Spark SQL for streamlined data querying and performing Extract, Transform, Load (ETL) operations on diverse datasets.
+
+`Delta Lake for Data Storage:` Utilizes Delta Lake for reliable and scalable data storage, ensuring ACID transactions and versioning for data integrity.
+
+This combination of tools offers a powerful suite for managing, analyzing, and processing data at scale, enabling efficient data engineering workflows.
+
+
 
 ## Infrastructure as Code (IaC)
 Infrastructure as Code (IaC) is a practice in which the infrastructure setup is written in code files, rather than manually configured. These code files can be version-controlled and reviewed, allowing for easy changes and rapid disaster recovery.
