@@ -1,0 +1,10 @@
+#pytest
+pytest==7.1.3
+pytest-cov==4.0.0
+
+
+#Connect to DB
+databricks
+databricks-sql-connector
+
+pandas
