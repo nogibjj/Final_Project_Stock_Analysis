@@ -37,15 +37,15 @@ Latest articles to make an informed decision before buying a stock
   
 ![News Articles](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/News%20Articles.png)
 
-#### 3. Personalized Stock Prediction Mail Service : 
-Personalized Prediction mail
-
-![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
-
 #### 3. Time Series Plot   : 
 The plot enables the user for Stock Price Visualization and Analysis
 
 ![Visualization](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Time%20Series%20Plot.png)
+
+#### 4. Personalized Stock Prediction Mail Service : 
+Personalized Prediction mail
+
+![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
 
 
 ## Microservice
