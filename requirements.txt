@@ -19,6 +19,7 @@ ipynb
 black_nbconvert
 ruff
 nbval
+plotly
 nbqa
 pytest-playwright
 flask
