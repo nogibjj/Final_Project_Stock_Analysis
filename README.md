@@ -5,16 +5,20 @@
 [![Lint](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/lint.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/lint.yml)
 [![Test](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml/badge.svg)](https://github.com/nogibjj/Final_Project_Stock_Analysis/actions/workflows/test.yml)
 
-## Stock Prediction App :
+## Overview :
 The application is designed to predict the stock price of a share by utilizing datasets from past 20 years and making predicions using live stock market data.
 
 The link to the application : https://definalproj.azurewebsites.net/
+The link to the video : [Link]()
 
-This repository contains a `Flask App` which has LLM functionality built into it, The APP is also hosted on `Azure` for public access. The project makes use of `Delta Tables` from `Databricks`, builds a docker image using `DockerHub` and utilizes `Web App` in `Azure` for deployment. Further, the project uses various `APIs` to interact with external websites for getting data to make predictions. 
+This repository contains a `Flask App` which has LLM functionality built into it, The APP is also hosted on `Azure` for public access. The project makes use of `Delta Tables` from `Databricks`, builds a docker image hosted on `DockerHub` and utilizes `Azure Web App` for deployment. Further, the project uses various `APIs` to interact with external websites for getting data to make predictions. 
 
+The App can be run by the user locally or can be accessed via the link provided earlier.
 The following image represents the `architectural diagram` of our project :
 
 ![Architectural Diagram](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/DE_Final_Schema.png)
+
+## Stock Prediction App :
 
 Here is the working function of the app : 
 
@@ -61,6 +65,9 @@ B. Offline:
 `python app.py`
 
 4. click on the Links which are shown in the terminal
+![Installation](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/app_install.png)
+
+6. When done using the app, press CTRL+C to quit the app
 
 
 ## Microservice
@@ -106,10 +113,6 @@ Here's how this project satisfies the Infrastructure as Code requirement:
 ![plot](results/system_performance.png)
 
 
-## Demo Video
-[Link]()
-
-
 ## Contents 
 
 Files in this repository include:
@@ -141,9 +144,7 @@ Files in this repository include:
 
 
   ### 5(b). Github Actions
-  Github Actions uses the `main.yml` file to call the functions defined in the Makefile based on triggers such as push or pull. Currently, every time a change is pushed onto the repository, it runs the install packages, formatting the code, linting the code, and then testing the code functions
-
-![build](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/build.png)
+Github actions are used to automate the following processes whenever a change is made to the files in the repository:
 
 `install :` installs the packages and libraries mentioned in the requirements.txt
 
@@ -156,6 +157,8 @@ Files in this repository include:
 `lint :` uses ruff to lint the python files
 
 Note -if all the processes run successfully the following output will be visible in github actions:
+
+![build](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/build.png)
 
   ### 5(c). Devcontainer
   
