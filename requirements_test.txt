@@ -4,7 +4,6 @@ pytest-cov==4.0.0
 
 
 #Connect to DB
-databricks
-databricks-sql-connector
+finnhub-python
 
 pandas
