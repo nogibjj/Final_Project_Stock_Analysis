@@ -19,7 +19,7 @@
 -   The application used Delta Lake for data storage
 
 ## Infrastructure as Code (IaC)
-`Infrastructure as Code (IaC)` is a practice in which the infrastructure setup is written in code files, rather than manually configured. These code files can be version-controlled and reviewed, allowing for easy changes and rapid disaster recovery.
+Infrastructure as Code (IaC) is a practice in which the infrastructure setup is written in code files, rather than manually configured. These code files can be version-controlled and reviewed, allowing for easy changes and rapid disaster recovery.
 
 Here's how your project satisfies the Infrastructure as Code requirement:
 
