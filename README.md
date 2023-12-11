@@ -37,6 +37,11 @@ Personalized Prediction mail
 
 ![Email](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Prediction%20Mail.png)
 
+#### 3. Time Series Plot for Visualization and Analysis  : 
+Personalized Prediction mail
+
+![Visualization](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/Time%20Series%20Plot.png)
+
 ## Architectural Diagram
 
 The following image represents the entire architecture that this projects employs. 
