@@ -10,7 +10,7 @@ The application is designed to predict the stock price of a share by utilizing d
 
 The link to the application : https://definalproj.azurewebsites.net/
 
-This repository contains a `Flask App` which has an LLM functionality built into it, The APP is also hosted on Azure for public access. The project makes use of `Delta Tables` from `Databricks`, builds a docker image using 'DockerHub' and utilizes `Web App` in 'Azure` for deployment. Further, the project uses various APIs to interact with external websites for getting data to make predictions.
+This repository contains a `Flask App` which has an LLM functionality built into it, The APP is also hosted on `Azure` for public access. The project makes use of `Delta Tables` from `Databricks`, builds a docker image using `DockerHub` and utilizes `Web App` in 'Azure` for deployment. Further, the project uses various `APIs` to interact with external websites for getting data to make predictions.
 
 
 ![Architectural Diagram](https://github.com/nogibjj/Final_Project_Stock_Analysis/blob/main/resources/DE_Final_Schema.png)
