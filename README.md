@@ -30,7 +30,7 @@ Here's how your project satisfies the Infrastructure as Code requirement:
 `Data Pipeline Setup:` The setup of the data pipeline (from API to Delta Lake in Azure Workspaces) is automated using Azure Workflows that are scheduled to run daily, this is another example of Infrastructure as Code.
 
 ## Continuous Integration and Continuous Delivery (CI/CD)
-    `Implement a CI/CD pipeline for your project. It could be through GitHub Actions or AWS Cloud Build or any other relevant tool.`
+Automated via GitHub Actions, this pipeline ensures code quality through formatting, linting, and dependency management. Triggered on pushes, pull requests, or manual execution, it streamlines the build process and welcomes contributions for testing, deployment automation, and notification enhancements.
 
 ## Architectural Diagram
     `A clear diagram representing the architecture of your application should be included in your project documentation.`
