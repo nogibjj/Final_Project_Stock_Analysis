@@ -90,9 +90,8 @@ Here's how this project satisfies the Infrastructure as Code requirement:
 ## Demo Video
 [Link]()
 
-#
 
-## File Index
+## Contents 
 
 Files in this repository include:
 
