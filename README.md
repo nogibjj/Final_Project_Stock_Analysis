@@ -190,4 +190,5 @@ Udyan Sachdev (us26)
 
 Ayush Gupta (ag758)
 
-
+`Teamwork Reflection` : Please find the teamwork reflection in the teamwork folder in this repository. 
+https://github.com/nogibjj/Final_Project_Stock_Analysis/tree/main/teamwork
