@@ -1,6 +1,11 @@
 install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
+
+install_test:
+	pip install --upgrade pip &&\
+		pip install -r requirements_test.txt
+
 format:	
 	find . -type f -name "*.py" -exec black {} \;
 	find . -type f -name "*.ipynb" -exec nbqa black {} \;
